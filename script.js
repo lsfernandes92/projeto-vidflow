@@ -1,5 +1,6 @@
 const containerVideos = document.querySelector(".videos__container")
 const barraDePesquisa = document.querySelector(".pesquisar__input")
+const categoriaSecaoSuperior = document.querySelectorAll(".superior__item")
 
 async function buscarEMostrarVideos() {
   try {
@@ -18,6 +19,7 @@ async function buscarEMostrarVideos() {
             <img class="img-canal" src="${video.imagem}" alt="Logo do canal">
             <h3 class="titulo-video">${video.titulo}</h3>
             <p class="visualizacoes-video">${video.descricao}</p>
+            <p class="categoria-video" hidden>${video.categoria}</p>
           </div>
         </li>
       `
@@ -39,5 +41,21 @@ function filtrarPesquisa() {
     const titulo = video.querySelector('.titulo-video').textContent.toLowerCase();
 
     video.style.display = valorFiltro ? titulo.includes(valorFiltro) ? 'block' : 'none' : 'block';
+  });
+}
+
+categoriaSecaoSuperior.forEach(categoria => {
+  const nomeCategoria = categoria.textContent.toLowerCase()
+  categoria.addEventListener("click", () => filtrarPesquisaPorCategoria(nomeCategoria))
+});
+
+function filtrarPesquisaPorCategoria(categoria) {
+  const videos = document.querySelectorAll('.videos__item');
+  
+  videos.forEach(video => {
+    const categoriaVideo = video.querySelector(".categoria-video").textContent.toLowerCase()
+
+    video.style.display =
+      categoria.includes(categoriaVideo) || categoria == "tudo" ? "block" : "none"
   });
 }
