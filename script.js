@@ -1,10 +1,11 @@
+const videosEndpoint = "https://videos-api-two.vercel.app/videos"
 const containerVideos = document.querySelector(".videos__container")
 const barraDePesquisa = document.querySelector(".pesquisar__input")
 const categoriaSecaoSuperior = document.querySelectorAll(".superior__item")
 
 async function buscarEMostrarVideos() {
   try {
-    const busca = await fetch("http://localhost:3000/videos")
+    const busca = await fetch(videosEndpoint)
     const videos = await busca.json()
   
     videos.forEach(video => {
